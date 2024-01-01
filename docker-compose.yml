@@ -1,0 +1,17 @@
+# docker-compose.yml
+version: "3.3"
+services:
+  ocrms-application:
+    image: ocrms
+    container_name: ocrms
+  npl:
+    build:
+      context: ./
+    ports:
+      - "9898:9898"
+    networks:
+      - internal
+      -
+networks:
+  internal:
+

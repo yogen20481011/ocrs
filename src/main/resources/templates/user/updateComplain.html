@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Online Crime Reporting System</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+    <script>
+        tinymce.init({
+            selector: '#mytextarea'
+        });
+    </script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+<div th:replace="user/userHome::css_link"></div>
+<div th:replace="user/userHome::css"></div>
+<div th:replace="user/userHome::admin_navbar"></div>
+<div class="content">
+    <div class="card mt-3">
+        <div class="card-body">
+            <h1 class="text-center">Update Complain</h1>
+            <div class="contner fluid" mr-1>
+                <div class="row">
+                    <div class="col-md-8 offset-md-1">
+                        <form action="#" th:action="@{/complain/update}" method="post" th:object="${complainDto}" enctype="multipart/form-data">
+                          <div class="input-group">
+                            <input type="text" id="id" name="id" th:field="*{id}" hidden>
+                             </div>
+                            <div class="input-group">
+                                <input type="text" id="complainStatus" name="complainStatus" th:field="*{complainStatus}" hidden>
+                            </div>
+                            <div class="input-group">
+                                <input type="text" id="address" name="address" placeholder="Enter Address" class="form-control" th:field="*{address}"/>
+                            </div>
+
+                            <select class="form-select form-select-md mt-3" name="todo status" th:field="*{crime}" aria-label="Default select example" required/>
+                            <option selected th:value="complainDto.complainStatus">Select crime</option>
+                            <th:block  th:each="crime : ${T(com.ocrms.ocrmsbca.Enum.ECrimeType).values()}">
+                                <option
+                                        th:value="${crime}"
+                                        th:text="${crime}">
+                                </option>
+                            </th:block>
+                            </select>
+                            <!-- Work ko lagi briefcase use garnee -->
+
+                            <div class="input group mt-3">
+
+                                <input type="date" id="crimeDate" name="crimeDate" placeholder="Enter Crime Date" class="form-control" th:field="*{crimeDate}" />
+                            </div>
+                            <!-- description -->
+                            <div class="form group mt-3">
+                                <textarea id="mytextarea" th:field="*{description}" placeholder="Enter Complain Description" name="description" class="form-control" rows="10"></textarea>
+                            </div>
+                             <br>
+                            <div>
+                            <!-- image -->
+                            <!--<div class="custom-file">
+                              <input type="file" name="photo"  th:field="*{multipartFile}">
+                            </div>
+                            <div class="container text-center">-->
+                            <button class="btn btn-outline-primary">Save Complain</button>
+                    </div>
+
+                    </form>
+                    <h4 th:text="*{message}" style="color: #0624d7"></h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+
+</html>
